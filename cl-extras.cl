@@ -32,13 +32,18 @@
 
 ;;; Code:
 
+(in-package :cl-user)
+
 (uiop:define-package "CL-EXTRAS"
-  (:mix :cl)
+  (:use :cl)
   (:nicknames :ext)
-  (:import-from :trivial-package-locks #:without-package-locks)
+  (:shadow #:defun)
   (:export #:import-from))
 
 (in-package :ext)
+
+;; (import '(defun))
+;; (shadowing-import '(defun))
 
 (defun lex--lambda-list (lambda-list name)
   (unless (evenp name)
@@ -180,8 +185,7 @@ Implementation after D. Hoyte from \"Let over lambda\"."
 ;; This violates CL standard in a way that it allows one or more arguments
 ;; with the same name, a single underscore.
 
-(without-package-locks
-  (defmacro defun (name lambda-list &body body)
+(defmacro defun (name lambda-list &body body)
     "Like CL-DEFUN but allow underscore as indicator for ignored arguments."
     (let (arglist ignored)
       (dolist (arg lambda-list)
@@ -192,10 +196,13 @@ Implementation after D. Hoyte from \"Let over lambda\"."
                (setf arg (gensym name)))
              (push arg arglist)
              (push arg ignored))
-            (t (push name arglist)))))
-      `(defun ,name ,(nreverse arglist)
+            (t (push arg arglist)))))
+      `(common-lisp:defun ,name ,(nreverse arglist)         
          (declare (ignore ,@ignored))
-         ,@body))))
+         ,@body)))
+
+(defclass testclass () ())
+(defun testclassp (object) (typep object 'testclass))
 
 (provide 'cl-extras)
 ;;; lex-bindings.el ends here
