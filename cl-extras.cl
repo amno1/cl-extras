@@ -201,8 +201,5 @@ Implementation after D. Hoyte from \"Let over lambda\"."
          (declare (ignore ,@ignored))
          ,@body)))
 
-(defclass testclass () ())
-(defun testclassp (object) (typep object 'testclass))
-
 (provide 'cl-extras)
 ;;; lex-bindings.el ends here
