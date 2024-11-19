@@ -28,12 +28,15 @@
 ;; * while*      - multiple condition while loop with named conditions
 ;; * named-let   - recursively called let with named conditions
 ;; * import-from - shadowing-import via slightly more convenient syntax
+;; * defun       - declare elisp-style ignored lambda-list arguments
 
 ;;; Code:
 
 (uiop:define-package "CL-EXTRAS"
-  (:use cl)
-  (:nicknames :ext))
+  (:mix :cl)
+  (:nicknames :ext)
+  (:import-from :trivial-package-locks #:without-package-locks)
+  (:export #:import-from))
 
 (in-package :ext)
 
@@ -170,6 +173,29 @@ Implementation after D. Hoyte from \"Let over lambda\"."
       (warn "Symbols: ~{~a~^ ~}~%are not found in ~a library"
             notfound library))
     (shadowing-import imports *package*)))
+
+;; Emacs-style ignored arguments: ignore arguments starting with underscore
+;; Like elisp, it also allows for multiple arguments with the same name
+;; but only if the name is a single underscore character
+;; This violates CL standard in a way that it allows one or more arguments
+;; with the same name, a single underscore.
+
+(without-package-locks
+  (defmacro defun (name lambda-list &body body)
+    "Like CL-DEFUN but allow underscore as indicator for ignored arguments."
+    (let (arglist ignored)
+      (dolist (arg lambda-list)
+        (let ((name (symbol-name arg)))
+          (cond
+            ((char= #\_ (aref name 0))
+             (when (= 1 (length name))
+               (setf arg (gensym name)))
+             (push arg arglist)
+             (push arg ignored))
+            (t (push name arglist)))))
+      `(defun ,name ,(nreverse arglist)
+         (declare (ignore ,@ignored))
+         ,@body))))
 
 (provide 'cl-extras)
 ;;; lex-bindings.el ends here
