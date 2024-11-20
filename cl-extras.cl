@@ -26,18 +26,7 @@
 
 ;;; Code:
 
-(in-package :cl-user)
-
-(uiop:define-package "CL-EXTRAS"
-  (:use :cl)
-  (:nicknames :ext)
-  (:shadow #:defun)
-  (:export #:import-from))
-
 (in-package :ext)
-
-;; (import '(defun))
-;; (shadowing-import '(defun))
 
 (defun lex--lambda-list (lambda-list name)
   (unless (evenp name)

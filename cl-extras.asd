@@ -15,6 +15,8 @@
   :author "Arthur Miller <arthur.miller@live.com>" 
   :licence "MIT" 
   :version "0.5.0"
+  :serial t
   :encoding :utf-8
-  :components ((:src "cl-extras")) 
+  :components ((:src "packages")
+               (:src "cl-extras"))
   :depends-on ())
