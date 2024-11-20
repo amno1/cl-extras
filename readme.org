@@ -3,12 +3,12 @@
 Just a few personal extras I am using/testing currently. In other words, WIP, nothing to see.
 
 
-* lex             - like let* but uses plist-like syntax of pairs
-* lex-if          - like if-let*   (uses lex under the hood)
-* lex-when    - like when-let* (uses lex under the hood)
-* rtimes        - like dotimes, but only repeat count
-* while          - simple while-loop as in elisp
-* while*         - multiple condition while loop with named conditions
-* named-let   - recursively called let with named conditions
-* import-from - shadowing-import via slightly more convenient syntax
-* defun          - declare elisp-style ignored lambda-list arguments
+*lex         - like let* but uses plist-like syntax of pairs
+lex-if      - like if-let*   (uses lex under the hood)
+lex-when    - like when-let* (uses lex under the hood)
+rtimes      - like dotimes, but only repeat count
+while       - simple while-loop as in elisp
+while*      - multiple condition while loop with named conditions
+named-let   - recursively called let with named conditions
+import-from - shadowing-import via slightly more convenient syntax
+defun       - declare elisp-style ignored lambda-list arguments
