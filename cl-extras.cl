@@ -1,4 +1,4 @@
-;;; cl-extras.el --- Few sinple utils I haven't seen elsewhere -*- lexical-binding: t; -*-
+;;; cl-extras.el --- Few sinple utils I haven't seen elsewhere
 
 ;; Copyright (C) 2024  Arthur Miller
 
@@ -6,17 +6,11 @@
 ;; Keywords: 
 
 ;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
+;; it under the terms of the MIT License
 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ;;; Commentary:
 
@@ -168,6 +162,10 @@ Implementation after D. Hoyte from \"Let over lambda\"."
        (,name ,@aargs))))
 
 (defun import-from (library &rest symbols)
+  "Import SYMBOLS from a LIBRARY (package).
+
+Just a convenience when I want to use a symbol or two in a particular
+file. Does not check the exported list, a brute force shadowing import."
   (let (imports notfound)
     (dolist (symbol symbols)
       (let ((import (find-symbol (symbol-name symbol) library)))
