@@ -35,6 +35,7 @@
         collect (list (pop ,lambda-list) (pop ,lambda-list)) into env
         end (nreverse env)))
 
+;; docs for lex, lex-if and lex-when adapted from Alexandria
 (defmacro lex (varlist &rest body)
   "Bind variables according to VARLIST and then eval BODY.
 
