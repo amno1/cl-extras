@@ -18,7 +18,7 @@
 ;; * lex-if      - like if-let*   (uses lex under the hood)
 ;; * lex-when    - like when-let* (uses lex under the hood)
 ;; * rtimes      - like dotimes, but only repeat count
-;; * while       _ simple while-loop as in elisp
+;; * while       - simple while-loop as in elisp
 ;; * while*      - multiple condition while loop with named conditions
 ;; * named-let   - recursively called let with named conditions
 ;; * import-from - shadowing-import via slightly more convenient syntax
