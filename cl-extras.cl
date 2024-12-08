@@ -28,12 +28,13 @@
 
 (in-package :ext)
 
-(defun lex--lambda-list (lambda-list name)
-  (unless (evenp name)
-    (signal 'wrong-number-of-arguments (list name (length lambda-list))))
-  `(loop for x in ,lambda-list
-        collect (list (pop ,lambda-list) (pop ,lambda-list)) into env
-        end (nreverse env)))
+(eval-when (:compile-toplevel)
+  (defun lex--lambda-list (lambda-list name)
+    (unless (evenp name)
+      (signal 'wrong-number-of-arguments (list name (length lambda-list))))
+    `(loop for x in ,lambda-list
+           collect (list (pop ,lambda-list) (pop ,lambda-list)) into env
+           end (nreverse env))))
 
 ;; docs for lex, lex-if and lex-when adapted from Alexandria
 (defmacro lex (varlist &rest body)
